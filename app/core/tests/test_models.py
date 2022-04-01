@@ -25,3 +25,11 @@ class ModelTests(TestCase):
     )
 
     self.assertEqual(user.email, email.lower())
+
+  def test_new_user_no_email_error(self):
+    """Tests that an error is thrown when no email is provided"""
+    with self.assertRaises(ValueError):
+      user = get_user_model().objects.create_user(
+          email=None,
+          password=self.mock_password
+      )
