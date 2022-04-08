@@ -51,10 +51,10 @@ class PrivateIngredientsApiTest(TestCase):
     Ingredient.objects.create(user=self.user, name='Kale')
 
     another_user = get_user_model().objects.create_user(
-        user='another@vinson.sg', password='password')
+        email='another@vinson.sg', password='password')
     Ingredient.objects.create(user=another_user, name='Another Ingredient')
 
-    ingredients = Ingredient.objects.filter(user=self.user).order_by('name')
+    ingredients = Ingredient.objects.filter(user=self.user).order_by('-name')
     serializer = IngredientSerializer(ingredients, many=True)
 
     res = self.client.get(INGREDIENTS_URL)
